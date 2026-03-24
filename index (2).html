@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Candor — The job comes to you.</title>
+  <meta name="description" content="On Candor, companies apply to you — not the other way around."/>
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --bg:#000; --s1:#0A0A0A; --s2:#111; --s3:#1A1A1A; --s4:#222; --s5:#2E2E2E; --s6:#3A3A3A;
+      --w1:#fff; --w2:#E8E8E8; --w3:#A0A0A0; --w4:#606060; --w5:#3A3A3A;
+      --bdr:rgba(255,255,255,.07); --bdr2:rgba(255,255,255,.12); --bdr3:rgba(255,255,255,.20);
+      --blue:#4B7BFF; --blue-d:rgba(75,123,255,.08); --blue-b:rgba(75,123,255,.22);
+      --green:#23D160; --green-d:rgba(35,209,96,.09); --green-b:rgba(35,209,96,.22);
+    }
+    body {
+      font-family: InterVariable, Inter, sans-serif;
+      background: var(--bg); color: var(--w3);
+      line-height: 1.6; overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes throb { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.25;transform:scale(.65)} }
+    .f1{animation:fadeUp .55s ease .04s both}
+    .f2{animation:fadeUp .55s ease .16s both}
+    .f3{animation:fadeUp .55s ease .28s both}
+    .f4{animation:fadeUp .55s ease .42s both}
+    .f5{animation:fadeUp .80s ease .56s both}
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:300; height:52px;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 40px; background:rgba(0,0,0,.90); backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--bdr);
+    }
+    .nav-brand { display:flex; align-items:center; gap:9px; }
+    .nav-brand span { font-size:15px; font-weight:600; color:var(--w1); letter-spacing:-.3px; }
+    .mark { width:24px; height:24px; border-radius:7px; background:var(--w1); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .nav-cta { padding:7px 18px; border-radius:8px; font-family:inherit; font-size:13.5px; font-weight:600; background:var(--w1); color:var(--bg); border:none; cursor:pointer; transition:background .15s; }
+    .nav-cta:hover { background:var(--w2); }
+    .hero { min-height:100vh; display:flex; align-items:center; padding:120px 40px 80px; position:relative; overflow:hidden; }
+    .hero-bloom { position:absolute; top:-10%; left:-5%; width:55%; height:70%; background:radial-gradient(ellipse at 20% 30%,rgba(255,255,255,.04) 0%,transparent 65%); pointer-events:none; }
+    .hero-grid { position:absolute; inset:0; pointer-events:none; background-image:radial-gradient(rgba(255,255,255,.10) 1px,transparent 1px); background-size:44px 44px; -webkit-mask-image:radial-gradient(ellipse 60% 60% at 15% 35%,black 10%,transparent 100%); mask-image:radial-gradient(ellipse 60% 60% at 15% 35%,black 10%,transparent 100%); }
+    .hero-content { position:relative; z-index:1; max-width:520px; width:100%; }
+    h1 { font-size:clamp(48px,6.5vw,76px); font-weight:700; line-height:1.03; letter-spacing:-0.045em; color:var(--w1); margin-bottom:20px; }
+    .implicit-line { font-size:clamp(13px,1.4vw,15px); font-weight:500; color:var(--w4); line-height:1.6; max-width:420px; margin-bottom:14px; }
+    .implicit-line strong { color:var(--w1); font-weight:600; }
+    .hero-sub { font-size:clamp(14px,1.5vw,17px); color:var(--w3); line-height:1.7; max-width:420px; margin-bottom:44px; }
+    .form-wrap { max-width:460px; }
+    .toggle { display:inline-flex; background:var(--s2); border:1px solid var(--bdr2); border-radius:10px; padding:3px; margin-bottom:14px; }
+    .toggle button { padding:8px 22px; border-radius:8px; font-family:inherit; font-size:13.5px; font-weight:500; border:none; cursor:pointer; transition:all .18s; background:transparent; color:var(--w4); }
+    .toggle button.active { background:var(--s5); color:var(--w1); }
+    .email-input { display:block; width:100%; padding:13px 18px; border-radius:10px; border:1px solid var(--bdr2); background:rgba(255,255,255,.03); font-family:inherit; font-size:15px; color:var(--w1); outline:none; margin-bottom:10px; transition:border-color .18s; }
+    .email-input:focus { border-color:var(--bdr3); background:rgba(255,255,255,.05); }
+    .cta-btn { display:block; width:100%; padding:13px 18px; border-radius:10px; font-family:inherit; font-size:15px; font-weight:700; background:var(--w1); color:var(--bg); border:none; cursor:pointer; transition:all .18s; }
+    .cta-btn:hover { background:var(--w2); transform:translateY(-1px); }
+    .no-spam { font-size:12.5px; color:var(--w5); margin-top:10px; }
+    .boss-line { font-size:12.5px; color:var(--w4); margin-top:5px; display:flex; align-items:center; gap:6px; }
+    .counter { display:flex; align-items:center; gap:12px; margin-top:28px; }
+    .avatars { display:flex; }
+    .avatar { width:26px; height:26px; border-radius:50%; border:2px solid var(--bg); display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:700; }
+    .counter-text { font-size:13px; color:var(--w4); }
+    .counter-text strong { color:var(--w2); font-weight:600; }
+    .success-box { background:var(--s1); border:1px solid var(--bdr2); border-radius:16px; padding:32px 28px; position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:flex-start; gap:20px; animation:fadeUp .45s ease both; }
+    .success-box::before { content:""; position:absolute; top:0; left:0; right:0; height:2px; background:var(--w1); }
+    .success-tick { width:48px; height:48px; border-radius:50%; background:var(--s3); border:1px solid var(--bdr2); display:flex; align-items:center; justify-content:center; }
+    .position-label { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--w4); margin-bottom:6px; }
+    .position-num { font-size:64px; font-weight:700; letter-spacing:-.06em; color:var(--w1); line-height:1; }
+    .ref-box { width:100%; background:var(--s2); border:1px solid var(--bdr); border-radius:12px; padding:16px; }
+    .ref-box h4 { font-size:13px; font-weight:600; color:var(--w1); margin-bottom:3px; }
+    .ref-box p { font-size:12px; color:var(--w4); margin-bottom:14px; }
+    .ref-row { display:flex; gap:8px; margin-bottom:10px; }
+    .ref-url { flex:1; padding:9px 13px; border-radius:8px; background:var(--s3); border:1px solid var(--bdr); font-size:12px; color:var(--w4); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .copy-btn { padding:9px 16px; border-radius:8px; font-family:inherit; font-size:13px; font-weight:600; border:none; cursor:pointer; flex-shrink:0; transition:all .2s; }
+    .share-btns { display:flex; gap:8px; }
+    .share-btn { flex:1; padding:9px 6px; border-radius:8px; font-family:inherit; font-size:12px; font-weight:500; background:var(--s3); color:var(--w3); border:1px solid var(--bdr); cursor:pointer; transition:all .15s; }
+    .share-btn:hover { background:var(--s4); color:var(--w2); }
+    .ref-note { font-size:11.5px; color:var(--w5); margin-top:12px; }
+    .ref-note strong { color:var(--w3); }
+    .preview-section { padding:100px 40px 120px; background:var(--s1); border-top:1px solid var(--bdr); }
+    .preview-inner { max-width:1040px; margin:0 auto; }
+    .section-label { display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--w4); margin-bottom:14px; }
+    .section-label::before { content:""; display:block; width:14px; height:1px; background:var(--w4); }
+    h2 { font-size:clamp(24px,3.5vw,42px); font-weight:700; letter-spacing:-.04em; color:var(--w1); line-height:1.08; margin-bottom:40px; }
+    .two-col { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; }
+    .mockup-card { background:var(--bg); border:1px solid var(--bdr2); border-radius:14px; overflow:hidden; box-shadow:0 40px 100px rgba(0,0,0,.8); display:flex; flex-direction:column; }
+    .browser-bar { background:var(--s2); padding:11px 16px; border-bottom:1px solid var(--bdr); display:flex; align-items:center; gap:10px; flex-shrink:0; }
+    .browser-dots { display:flex; gap:5px; }
+    .browser-dot { width:11px; height:11px; border-radius:50%; background:#333; }
+    .browser-url { flex:1; background:var(--s3); border-radius:5px; padding:4px 12px; font-size:11.5px; color:var(--w5); display:flex; align-items:center; gap:6px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+    .url-dot { width:6px; height:6px; border-radius:50%; background:var(--w4); flex-shrink:0; }
+    .pitch-list { padding:16px 14px; display:flex; flex-direction:column; gap:10px; flex:1; }
+    .pitch-list-label { font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--w5); margin-bottom:2px; }
+    .pitch-card { border-radius:10px; padding:14px 16px; cursor:pointer; position:relative; overflow:hidden; }
+    .pitch-card.featured { background:var(--s2); border:1px solid var(--bdr2); }
+    .pitch-card.featured::before { content:""; position:absolute; top:0; left:0; right:0; height:1.5px; background:var(--w1); }
+    .pitch-card.regular { background:var(--s1); border:1px solid var(--bdr); }
+    .pitch-top { display:flex; align-items:center; gap:10px; margin-bottom:9px; }
+    .company-logo { width:30px; height:30px; border-radius:7px; border:1px solid var(--bdr); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:10px; font-weight:700; }
+    .company-name { font-size:12.5px; font-weight:600; color:var(--w1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .company-meta { font-size:11px; color:var(--w4); }
+    .salary-pill { font-size:11.5px; font-weight:700; padding:3px 9px; border-radius:100px; white-space:nowrap; flex-shrink:0; }
+    .salary-featured { color:var(--w1); background:var(--s5); border:1px solid var(--bdr3); }
+    .salary-blue { color:#4B7BFF; background:rgba(75,123,255,.12); border:1px solid rgba(75,123,255,.25); }
+    .pitch-msg { font-size:12.5px; color:var(--w3); line-height:1.55; }
+    .pitch-tags { display:flex; gap:5px; flex-wrap:wrap; margin-top:9px; }
+    .pitch-tag { font-size:10.5px; padding:2px 8px; border-radius:4px; }
+    .tag-verified { background:rgba(35,209,96,.12); color:#23D160; border:1px solid rgba(35,209,96,.25); font-weight:600; }
+    .tag-regular { background:var(--s4); color:var(--w4); border:1px solid var(--bdr); }
+    .detail-card { background:var(--bg); border:1px solid var(--bdr2); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 40px 100px rgba(0,0,0,.8); }
+    .detail-header { background:var(--s2); padding:14px 18px; border-bottom:1px solid var(--bdr); position:relative; overflow:hidden; flex-shrink:0; }
+    .detail-header::before { content:""; position:absolute; top:0; left:0; right:0; height:1.5px; background:var(--w1); }
+    .detail-header-inner { display:flex; align-items:center; gap:10px; }
+    .detail-logo { width:36px; height:36px; border-radius:8px; background:#1A2B5E; border:1px solid rgba(75,123,255,.20); display:flex; align-items:center; justify-content:center; font-size:11.5px; font-weight:700; color:#4B7BFF; flex-shrink:0; }
+    .detail-company { font-size:14px; font-weight:600; color:var(--w1); }
+    .detail-meta { font-size:11.5px; color:var(--w4); }
+    .verified-badge { margin-left:auto; padding:3px 9px; border-radius:100px; background:rgba(35,209,96,.12); border:1px solid rgba(35,209,96,.25); font-size:10px; font-weight:700; color:#23D160; white-space:nowrap; flex-shrink:0; }
+    .detail-body { padding:16px 18px; flex:1; display:flex; flex-direction:column; }
+    .detail-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--bdr); }
+    .detail-label { font-size:12px; color:var(--w4); }
+    .detail-value { font-size:12.5px; font-weight:600; color:var(--w2); }
+    .detail-value.blue { color:#4B7BFF; }
+    .detail-value.white { color:var(--w1); }
+    .pitch-quote { margin:16px 0; padding:13px 14px; border-radius:9px; background:var(--s2); border:1px solid var(--bdr); font-size:13px; color:var(--w3); line-height:1.65; }
+    .pitch-quote strong { color:var(--w2); font-weight:500; }
+    .action-btns { display:flex; gap:8px; margin-top:auto; }
+    .accept-btn { flex:1; padding:10px 0; border-radius:9px; font-family:inherit; font-size:13.5px; font-weight:700; background:var(--w1); color:var(--bg); border:none; cursor:pointer; transition:all .15s; }
+    .accept-btn:hover { background:var(--w2); }
+    .decline-btn { flex:1; padding:10px 0; border-radius:9px; font-family:inherit; font-size:13.5px; font-weight:500; background:var(--s3); color:var(--w3); border:1px solid var(--bdr); cursor:pointer; }
+    .anon-note { display:flex; align-items:center; gap:6px; margin-top:10px; padding:8px 10px; border-radius:7px; background:var(--s2); border:1px solid var(--bdr); font-size:11.5px; color:var(--w4); }
+    .bottom-cta { padding:140px 40px; background:var(--bg); border-top:1px solid var(--bdr); text-align:left; }
+    .bottom-inner { max-width:520px; }
+    .white-rule { width:36px; height:1.5px; background:var(--w1); margin-bottom:28px; }
+    .bottom-cta h2 { font-size:clamp(32px,4.5vw,54px); font-weight:700; letter-spacing:-.045em; color:var(--w1); line-height:1.05; margin-bottom:14px; }
+    .bottom-cta p { font-size:15px; color:var(--w3); line-height:1.65; margin-bottom:36px; }
+    .bottom-form { display:flex; gap:8px; max-width:440px; }
+    .bottom-email { flex:1; padding:12px 16px; border-radius:10px; border:1px solid var(--bdr2); background:rgba(255,255,255,.03); font-family:inherit; font-size:14px; color:var(--w1); outline:none; }
+    .bottom-email:focus { border-color:var(--bdr3); }
+    .bottom-join { padding:12px 22px; border-radius:10px; font-family:inherit; font-size:14px; font-weight:700; background:var(--w1); color:var(--bg); border:none; cursor:pointer; flex-shrink:0; }
+    .bottom-join:hover { background:var(--w2); }
+    footer { background:var(--s1); border-top:1px solid var(--bdr); padding:32px 40px; display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:20px; }
+    .footer-brand { display:flex; align-items:center; gap:8px; }
+    .footer-brand span { font-size:14px; font-weight:600; color:var(--w1); }
+    .footer-tag { font-size:12px; color:var(--w5); margin-top:4px; }
+    .footer-links { display:flex; gap:20px; flex-wrap:wrap; }
+    .footer-links a { font-size:13px; color:var(--w5); text-decoration:none; }
+    .footer-links a:hover { color:var(--w2); }
+    .footer-copy { font-size:12px; color:var(--w5); }
+    @media (max-width:640px) {
+      nav { padding:0 20px; }
+      .hero { padding:100px 20px 60px; }
+      .preview-section { padding:60px 20px 80px; }
+      .bottom-cta { padding:80px 20px; }
+      footer { padding:24px 20px; }
+      .bottom-form { flex-direction:column; }
+      .bottom-join { width:100%; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="mark">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <circle cx="6" cy="6" r="4.2" stroke="black" stroke-width="1.5"/>
+        <circle cx="6" cy="6" r="1.7" fill="black"/>
+      </svg>
+    </div>
+    <span>Candor</span>
+  </div>
+  <button class="nav-cta" onclick="scrollToForm()">Get Early Access</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bloom"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <h1 class="f1">The job comes<br>to you.</h1>
+    <p class="f2 implicit-line">Every job platform was built for companies. <strong>Candor was built for you.</strong></p>
+    <p class="f3 hero-sub">On Candor, companies apply to you — not the other way around. Real salary on every message. You stay invisible. You choose who is worthy of your time.</p>
+
+    <div class="f4" id="form-section">
+      <div class="success-box" id="success-state" style="display:none;">
+        <div class="success-tick">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4 4 8-8"/></svg>
+        </div>
+        <div>
+          <div class="position-label">You are position</div>
+          <div class="position-num" id="position-display">#4489</div>
+        </div>
+        <p style="font-size:14px;color:var(--w3);line-height:1.65;">You are on the list. <strong style="color:var(--w2);font-weight:500;">Share with a friend to move up</strong> — every referral moves you 10 positions closer to launch.</p>
+        <div class="ref-box">
+          <h4>Your referral link</h4>
+          <p>Each person who joins through your link moves you up 10 spots.</p>
+          <div class="ref-row">
+            <div class="ref-url" id="ref-url-display">getcandor.net/join?ref=XXXXXXXX</div>
+            <button class="copy-btn" id="copy-btn" onclick="copyLink()" style="background:var(--w1);color:var(--bg);">Copy</button>
+          </div>
+          <div class="share-btns">
+            <button class="share-btn" onclick="shareX()">Post on X</button>
+            <button class="share-btn" onclick="shareLinkedIn()">LinkedIn</button>
+            <button class="share-btn" onclick="copyLink()">Copy link</button>
+          </div>
+          <p class="ref-note">Each referral = <strong>+10 positions</strong> up the list</p>
+        </div>
+      </div>
+
+      <div id="form-state" class="form-wrap">
+        <div class="toggle">
+          <button class="active" id="btn-pro" onclick="setRole('pro')">I'm a professional</button>
+          <button id="btn-co" onclick="setRole('co')">I'm a company</button>
+        </div>
+        <input class="email-input" type="email" id="email-input" placeholder="Your email address" onkeydown="if(event.key==='Enter') joinWaitlist()"/>
+        <button class="cta-btn" onclick="joinWaitlist()">Get early access →</button>
+        <p class="no-spam">No spam. No recruiters. Unsubscribe any time.</p>
+        <p class="boss-line">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--w4)" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="5.5" width="7" height="5" rx="1"/><path d="M4 5.5V4a2 2 0 014 0v1.5"/></svg>
+          Your boss will never know you're here.
+        </p>
+        <div class="counter f5">
+          <div class="avatars">
+            <div class="avatar" style="background:#1A2B5E;color:#4B7BFF;margin-left:0;">AM</div>
+            <div class="avatar" style="background:#1A3828;color:#23D160;margin-left:-7px;">SK</div>
+            <div class="avatar" style="background:#3B1F0A;color:#F59E0B;margin-left:-7px;">JT</div>
+            <div class="avatar" style="background:#2D1A1A;color:#F87171;margin-left:-7px;">RL</div>
+            <div class="avatar" style="background:#2A1A3B;color:#A78BFA;margin-left:-7px;">MC</div>
+          </div>
+          <span class="counter-text"><strong id="counter-num">4,489</strong> professionals already waiting</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="preview-section">
+  <div class="preview-inner">
+    <div class="section-label">What lands in your inbox when</div>
+    <h2>7 companies applied to you this week.</h2>
+    <div class="two-col">
+      <div class="mockup-card">
+        <div class="browser-bar">
+          <div class="browser-dots"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div></div>
+          <div class="browser-url"><div class="url-dot"></div>getcandor.net / my-pitches</div>
+        </div>
+        <div class="pitch-list">
+          <div class="pitch-list-label">7 companies applied to you</div>
+          <div class="pitch-card featured">
+            <div class="pitch-top">
+              <div class="company-logo" style="background:#1A2B5E;color:#4B7BFF;">AC</div>
+              <div style="flex:1;min-width:0;"><div class="company-name">Acme Technologies</div><div class="company-meta">Series B · London · 4.6★</div></div>
+              <div class="salary-pill salary-featured">£95k – £115k</div>
+            </div>
+            <div class="pitch-msg">We found your profile and believe your B2B SaaS background is a strong fit. We'd love to tell you more.</div>
+            <div class="pitch-tags"><span class="pitch-tag tag-verified">✓ Verified</span><span class="pitch-tag tag-regular">3 stages</span><span class="pitch-tag tag-regular">~2 weeks</span></div>
+          </div>
+          <div class="pitch-card regular">
+            <div class="pitch-top">
+              <div class="company-logo" style="background:#1A3828;color:#23D160;">ME</div>
+              <div style="flex:1;min-width:0;"><div class="company-name">Meridian Labs</div><div class="company-meta">Seed · Remote · 4.8★</div></div>
+              <div class="salary-pill salary-blue">£80k – £100k</div>
+            </div>
+            <div class="pitch-msg">Your payments work caught our attention. Great fit for our product lead role.</div>
+          </div>
+          <div class="pitch-card regular">
+            <div class="pitch-top">
+              <div class="company-logo" style="background:#3B1F0A;color:#F59E0B;">ST</div>
+              <div style="flex:1;min-width:0;"><div class="company-name">Strand Capital</div><div class="company-meta">Growth · London · 4.3★</div></div>
+              <div class="salary-pill salary-blue">£120k – £145k</div>
+            </div>
+            <div class="pitch-msg">Your fintech background aligns with our product roadmap for the next 18 months.</div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-header">
+          <div class="detail-header-inner">
+            <div class="detail-logo">AT</div>
+            <div><div class="detail-company">Acme Technologies</div><div class="detail-meta">Series B · 120 people · London</div></div>
+            <div class="verified-badge">✓ Verified</div>
+          </div>
+        </div>
+        <div class="detail-body">
+          <div class="detail-row"><span class="detail-label">Role</span><span class="detail-value">Senior Product Manager</span></div>
+          <div class="detail-row"><span class="detail-label">Salary range</span><span class="detail-value blue">£95,000 – £115,000</span></div>
+          <div class="detail-row"><span class="detail-label">Culture score</span><span class="detail-value">4.6 / 5 · 94 reviews</span></div>
+          <div class="detail-row"><span class="detail-label">Interview stages</span><span class="detail-value">3 rounds · ~2 weeks</span></div>
+          <div class="detail-row"><span class="detail-label">Staff turnover</span><span class="detail-value white">8% annual</span></div>
+          <div class="detail-row" style="border-bottom:none;"><span class="detail-label">Hiring manager</span><span class="detail-value">Sarah Chen, VP Product</span></div>
+          <div class="pitch-quote">"We found your profile and believe your B2B SaaS background fits what we're building. <strong>We'd love to tell you more.</strong>"</div>
+          <div class="action-btns">
+            <button class="accept-btn" onclick="scrollToForm()">Accept pitch →</button>
+            <button class="decline-btn">Not for me</button>
+          </div>
+          <div class="anon-note">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="var(--w4)" stroke-width="1.2" stroke-linecap="round"><rect x="2.5" y="5.5" width="7" height="5" rx="1"/><path d="M4 5.5V4a2 2 0 014 0v1.5"/></svg>
+            Your identity stays hidden until you accept
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bottom-cta">
+  <div class="bottom-inner">
+    <div class="white-rule"></div>
+    <h2>Stop applying.<br>Start being chosen.</h2>
+    <p id="bottom-count-text">4,489 professionals are already on the list. The higher your position, the earlier you get in.</p>
+    <div id="bottom-form-wrap">
+      <div class="toggle" style="margin-bottom:14px;">
+        <button class="active" id="btn-pro-b" onclick="setRole2('pro')">I'm a professional</button>
+        <button id="btn-co-b" onclick="setRole2('co')">I'm a company</button>
+      </div>
+      <div class="bottom-form">
+        <input class="bottom-email" type="email" id="email-input-b" placeholder="Your email address" onkeydown="if(event.key==='Enter') joinWaitlist2()"/>
+        <button class="bottom-join" onclick="joinWaitlist2()">Join →</button>
+      </div>
+      <p style="font-size:12px;color:var(--w5);margin-top:12px;">No spam. No recruiters. Unsubscribe any time.</p>
+    </div>
+    <p id="bottom-success-msg" style="display:none;font-size:15px;color:var(--w2);font-weight:500;"></p>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-brand">
+      <div class="mark"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.2" stroke="black" stroke-width="1.5"/><circle cx="6" cy="6" r="1.7" fill="black"/></svg></div>
+      <span>Candor</span>
+    </div>
+    <p class="footer-tag">The job comes to you.</p>
+  </div>
+  <div class="footer-links">
+    <a href="#">About</a><a href="#">How it works</a><a href="#">For companies</a><a href="#">Privacy</a><a href="#">Terms</a>
+  </div>
+  <p class="footer-copy">© 2026 Candor.</p>
+</footer>
+
+<script>
+  var role = 'pro', role2 = 'pro', count = 4489, refCode = '', position = 0;
+
+  setInterval(function() {
+    if (Math.random() > 0.6) {
+      count++;
+      var el = document.getElementById('counter-num');
+      if (el) el.textContent = count.toLocaleString();
+      var bt = document.getElementById('bottom-count-text');
+      if (bt) bt.textContent = count.toLocaleString() + ' professionals are already on the list. The higher your position, the earlier you get in.';
+    }
+  }, 8000);
+
+  function setRole(r) {
+    role = r;
+    document.getElementById('btn-pro').classList.toggle('active', r === 'pro');
+    document.getElementById('btn-co').classList.toggle('active', r === 'co');
+    document.getElementById('email-input').placeholder = r === 'pro' ? 'Your email address' : 'Your company email';
+  }
+
+  function setRole2(r) {
+    role2 = r;
+    document.getElementById('btn-pro-b').classList.toggle('active', r === 'pro');
+    document.getElementById('btn-co-b').classList.toggle('active', r === 'co');
+    document.getElementById('email-input-b').placeholder = r === 'pro' ? 'Your email address' : 'Your company email';
+  }
+
+  function scrollToForm() {
+    document.getElementById('form-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(function() { document.getElementById('email-input').focus(); }, 600);
+  }
+
+  function joinWaitlist() {
+    var email = document.getElementById('email-input').value;
+    if (!email.includes('@')) return;
+    position = count + 1; count = position;
+    refCode = Math.random().toString(36).slice(2,10).toUpperCase();
+    showSuccess();
+  }
+
+  function joinWaitlist2() {
+    var email = document.getElementById('email-input-b').value;
+    if (!email.includes('@')) return;
+    position = count + 1; count = position;
+    refCode = Math.random().toString(36).slice(2,10).toUpperCase();
+    document.getElementById('bottom-form-wrap').style.display = 'none';
+    var msg = document.getElementById('bottom-success-msg');
+    msg.style.display = 'block';
+    msg.textContent = 'You are on the list at position #' + position.toLocaleString() + '. Share your link above to move up.';
+    showSuccess();
+  }
+
+  function showSuccess() {
+    document.getElementById('form-state').style.display = 'none';
+    var s = document.getElementById('success-state');
+    s.style.display = 'flex';
+    document.getElementById('position-display').textContent = '#' + position.toLocaleString();
+    document.getElementById('ref-url-display').textContent = 'getcandor.net/join?ref=' + refCode;
+  }
+
+  function copyLink() {
+    var url = 'https://getcandor.net/join?ref=' + refCode;
+    navigator.clipboard.writeText(url).catch(function(){});
+    var btn = document.getElementById('copy-btn');
+    if (btn) { btn.textContent = 'Copied ✓'; btn.style.background = 'var(--s5)'; btn.style.color = 'var(--w1)'; }
+    setTimeout(function() { if (btn) { btn.textContent = 'Copy'; btn.style.background = 'var(--w1)'; btn.style.color = 'var(--bg)'; }}, 2500);
+  }
+
+  function shareX() {
+    var url = 'https://getcandor.net/join?ref=' + refCode;
+    var text = encodeURIComponent('I just joined the Candor waitlist.\n\nCompanies apply to YOU with their real salary on the first message. You stay anonymous. The job comes to you.\n\nGet early access: ' + url);
+    window.open('https://x.com/intent/tweet?text=' + text, '_blank');
+  }
+
+  function shareLinkedIn() {
+    var url = encodeURIComponent('https://getcandor.net/join?ref=' + refCode);
+    window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + url, '_blank');
+  }
+</script>
+</body>
+</html>
