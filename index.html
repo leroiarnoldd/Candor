@@ -444,6 +444,11 @@
     if(!email.includes('@'))return;
     position=count+1; count=position;
     refCode=Math.random().toString(36).slice(2,10).toUpperCase();
+    fetch('https://app.loops.so/api/v1/contacts/create',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer 4df1081cb521b69a9fb8ddd1da6bcaae'},
+      body:JSON.stringify({email:email,source:'waitlist',userGroup:role==='pro'?'Professional':'Company'})
+    });
     document.getElementById('form-state').style.display='none';
     var sb=document.getElementById('success-box');
     sb.style.display='flex';
