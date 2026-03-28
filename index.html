@@ -439,15 +439,16 @@
     document.getElementById('form-area').scrollIntoView({behavior:'smooth',block:'center'});
     setTimeout(function(){document.getElementById('email-input').focus();},600);
   }
-  function joinWaitlist(){
+function joinWaitlist(){
     var email=document.getElementById('email-input').value;
     if(!email.includes('@'))return;
     position=count+1; count=position;
     refCode=Math.random().toString(36).slice(2,10).toUpperCase();
-    fetch('https://app.loops.so/api/v1/contacts/create',{
+    var fd=new FormData();
+    fd.append('email',email);
+    fetch('https://app.loops.so/api/newsletter-form/cmn39847w03cj0iwl674ur9k3',{
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer 4df1081cb521b69a9fb8ddd1da6bcaae'},
-      body:JSON.stringify({email:email,source:'waitlist',userGroup:role==='pro'?'Professional':'Company'})
+      body:fd
     });
     document.getElementById('form-state').style.display='none';
     var sb=document.getElementById('success-box');
