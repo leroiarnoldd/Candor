@@ -444,11 +444,11 @@ function joinWaitlist(){
     if(!email.includes('@'))return;
     position=count+1; count=position;
     refCode=Math.random().toString(36).slice(2,10).toUpperCase();
-    var fd=new FormData();
-    fd.append('email',email);
+    var formBody='email='+encodeURIComponent(email)+'&userGroup='+encodeURIComponent(role==='pro'?'Professional':'Company');
     fetch('https://app.loops.so/api/newsletter-form/cmn39847w03cj0iwl674ur9k3',{
       method:'POST',
-      body:fd
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:formBody
     });
     document.getElementById('form-state').style.display='none';
     var sb=document.getElementById('success-box');
