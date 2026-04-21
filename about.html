@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Candor</title>
+  <meta name="description" content="Candor is a candidate-first professional platform built on a simple belief — the people doing the work should hold the power in the hiring process."/>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;background:#000000}
+    :root{
+      --bg:#000000;--s1:#0D0D0D;--s2:#111;--s3:#1A1A1A;--s4:#222;--s5:#2E2E2E;
+      --w1:#fff;--w2:#E8E8E8;--w3:#A0A0A0;--w4:#606060;--w5:#3A3A3A;
+      --bdr:rgba(255,255,255,.07);--bdr2:rgba(255,255,255,.12);--bdr3:rgba(255,255,255,.20);
+      --blue:#4B7BFF;--green:#23D160;--amber:#F59E0B;--red:#F87171;--purple:#A78BFA;
+    }
+    body{font-family:InterVariable,Inter,sans-serif;font-feature-settings:"liga" 1,"calt" 1,"cv05" 1,"ss01" 1;background:#000000;color:var(--w3);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    body::after{display:none}
+    nav{position:fixed;top:0;left:0;right:0;z-index:300;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(0,0,0,.90);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr)}
+    .nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .mark{width:24px;height:24px;border-radius:7px;background:var(--w1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .nav-logo span{font-size:15px;font-weight:600;color:var(--w1);letter-spacing:-.3px}
+    .nav-cta{padding:7px 18px;border-radius:8px;font-family:inherit;font-size:13.5px;font-weight:600;background:var(--w1);color:var(--bg);border:none;cursor:pointer;transition:background .15s;text-decoration:none}
+    .nav-cta:hover{background:var(--w2)}
+
+    /* HERO */
+    .hero{padding:140px 40px 80px;max-width:720px;margin:0 auto}
+    .eyebrow{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:20px}
+    .eyebrow::before{content:"";display:block;width:14px;height:1px;background:var(--blue)}
+    .hero h1{font-size:clamp(36px,5vw,58px);font-weight:700;letter-spacing:-.045em;color:var(--w1);line-height:1.05;margin-bottom:24px}
+    .hero-sub{font-size:clamp(15px,1.8vw,19px);color:var(--w3);line-height:1.75;max-width:580px}
+
+    /* SECTIONS */
+    .content{max-width:720px;margin:0 auto;padding:0 40px 120px}
+    .section{padding:56px 0;border-top:1px solid var(--bdr)}
+    .section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--w4);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .section-label::before{content:"";display:block;width:14px;height:1px;background:var(--w4)}
+    .section h2{font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-.04em;color:var(--w1);line-height:1.1;margin-bottom:20px}
+    .section p{font-size:15px;color:var(--w3);line-height:1.8;margin-bottom:16px}
+    .section p:last-child{margin-bottom:0}
+    .section p strong{color:var(--w2);font-weight:600}
+
+    /* MISSION CARD */
+    .mission-card{background:var(--s1);border:1px solid var(--bdr2);border-radius:16px;padding:36px 40px;position:relative;overflow:hidden;margin-bottom:0}
+    .mission-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--green))}
+    .mission-card p{font-size:clamp(17px,2.2vw,22px);font-weight:500;color:var(--w1);line-height:1.6;margin:0}
+
+    /* VALUES */
+    .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:4px}
+    .value-card{background:var(--s1);border:1px solid var(--bdr);border-radius:12px;padding:24px}
+    .value-card h3{font-size:13px;font-weight:700;color:var(--w1);margin-bottom:8px;letter-spacing:-.01em}
+    .value-card p{font-size:13px;color:var(--w4);line-height:1.6;margin:0}
+
+    /* DIFFERENCE LIST */
+    .diff-list{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+    .diff-item{display:flex;align-items:flex-start;gap:14px;padding:20px 24px;background:var(--s1);border:1px solid var(--bdr);border-radius:12px}
+    .diff-ico{width:20px;height:20px;border-radius:50%;background:rgba(35,209,96,.15);border:1px solid rgba(35,209,96,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+    .diff-ico svg{width:9px;height:9px}
+    .diff-item p{font-size:14px;color:var(--w3);line-height:1.65;margin:0}
+    .diff-item p strong{color:var(--w1);font-weight:600}
+
+    /* FOUNDER */
+    .founder-card{background:var(--s1);border:1px solid var(--bdr2);border-radius:16px;padding:36px 40px;position:relative;overflow:hidden}
+    .founder-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--w1)}
+    .founder-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--w4);margin-bottom:16px}
+    .founder-name{font-size:20px;font-weight:700;color:var(--w1);margin-bottom:4px}
+    .founder-role{font-size:13px;color:var(--w4);margin-bottom:20px}
+    .founder-quote{font-size:14px;color:var(--w3);line-height:1.75}
+    .founder-quote strong{color:var(--w2);font-weight:500}
+
+    /* CTA */
+    .bottom-cta{padding:80px 40px;border-top:1px solid var(--bdr);text-align:left;max-width:720px;margin:0 auto}
+    .bottom-cta h2{font-size:clamp(26px,3.5vw,40px);font-weight:700;letter-spacing:-.04em;color:var(--w1);margin-bottom:16px;line-height:1.1}
+    .bottom-cta p{font-size:15px;color:var(--w3);margin-bottom:28px;line-height:1.7}
+    .cta-btn{display:inline-block;padding:13px 28px;border-radius:10px;font-family:inherit;font-size:15px;font-weight:700;background:var(--w1);color:var(--bg);border:none;cursor:pointer;text-decoration:none;transition:all .18s}
+    .cta-btn:hover{background:var(--w2);transform:translateY(-1px)}
+
+    footer{background:var(--bg);border-top:1px solid var(--bdr);padding:32px 40px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px}
+    .footer-brand{display:flex;align-items:center;gap:8px}
+    .footer-brand span{font-size:14px;font-weight:600;color:var(--w1)}
+    .footer-tag{font-size:12px;color:var(--w5);margin-top:4px}
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap}
+    .footer-links a{font-size:13px;color:var(--w5);text-decoration:none}
+    .footer-links a:hover{color:var(--w2)}
+    .footer-copy{font-size:12px;color:var(--w5)}
+    @media(max-width:640px){nav,footer{padding:0 20px}.hero,.content,.bottom-cta{padding-left:20px;padding-right:20px}.mission-card,.founder-card{padding:24px}.values-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="mark">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <circle cx="6" cy="6" r="4.2" stroke="black" stroke-width="1.5"/>
+        <circle cx="6" cy="6" r="1.7" fill="black"/>
+      </svg>
+    </div>
+    <span>Candor</span>
+  </a>
+  <a href="/" class="nav-cta">Get Early Access</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">About Candor</div>
+  <h1>Built for the people doing the work.</h1>
+  <p class="hero-sub">Candor is a candidate-first professional platform built on a simple belief — the people doing the work should hold the power in the hiring process.</p>
+</div>
+
+<div class="content">
+
+  <!-- MISSION -->
+  <div class="section">
+    <div class="section-label">Our Mission</div>
+    <div class="mission-card">
+      <p>To give every professional the power, the information, and the dignity they deserve in their career.</p>
+    </div>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="section">
+    <div class="section-label">Why We Exist</div>
+    <h2>The system is broken. Everyone knows it.</h2>
+    <p>Salaries hidden until the final round. Candidates ghosted with no explanation. Names judged before work ever gets a chance. Offers rescinded after weeks of process. Every major job platform was designed to serve companies.</p>
+    <p>We built Candor because we lived it. And because the people applying for jobs deserve better than the industry they are applying into.</p>
+  </div>
+
+  <!-- WHAT WE DO -->
+  <div class="section">
+    <div class="section-label">What We Do</div>
+    <h2>Companies apply to you. Not the other way around.</h2>
+    <p>You build a profile based on your work and your outcomes — not your CV. You set your salary floor, your terms, and your deal-breakers. Companies pitch you with the real salary on the first message.</p>
+    <p>You stay <strong>anonymous until you choose otherwise</strong>. You decide who is worthy of your time. The job comes to you.</p>
+  </div>
+
+  <!-- WHY DIFFERENT -->
+  <div class="section">
+    <div class="section-label">Why We Are Different</div>
+    <h2>Structure changes everything.</h2>
+    <p>Every other platform makes money from companies. That means every other platform is built for companies. Candor makes money when professionals win. That is not a positioning statement. It is a structural decision that changes everything about how the platform works.</p>
+    <div class="diff-list">
+      <div class="diff-item">
+        <div class="diff-ico"><svg viewBox="0 0 9 9" fill="none"><path d="M1 4.5l2 2 5-5" stroke="#23D160" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <p><strong>Salary transparency enforced on every pitch.</strong> Real number on the first message. Always. No exceptions.</p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-ico"><svg viewBox="0 0 9 9" fill="none"><path d="M1 4.5l2 2 5-5" stroke="#23D160" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <p><strong>Ghosting has consequences.</strong> Ghost a candidate and you lose platform access. Permanently.</p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-ico"><svg viewBox="0 0 9 9" fill="none"><path d="M1 4.5l2 2 5-5" stroke="#23D160" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <p><strong>Your identity stays hidden until you say so.</strong> Your boss will never know you are here.</p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-ico"><svg viewBox="0 0 9 9" fill="none"><path d="M1 4.5l2 2 5-5" stroke="#23D160" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <p><strong>We never sell your data</strong> to the people trying to hire you.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VALUES -->
+  <div class="section">
+    <div class="section-label">Our Values</div>
+    <h2>What we stand for.</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <h3>Honesty above comfort</h3>
+        <p>We say the things the industry does not want said. We publish the data others hide.</p>
+      </div>
+      <div class="value-card">
+        <h3>Transparency above convenience</h3>
+        <p>Salary visible. Culture verified. Hiring manager named. Always.</p>
+      </div>
+      <div class="value-card">
+        <h3>The professional above the platform</h3>
+        <p>Every product decision starts with one question — does this serve the candidate?</p>
+      </div>
+      <div class="value-card">
+        <h3>Accountability above excuses</h3>
+        <p>Bad actors lose access. No warnings. No second chances. The standard is the standard.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOUNDER -->
+  <div class="section">
+    <div class="section-label">Founded</div>
+    <div class="founder-card">
+      <div class="founder-label">The founder</div>
+      <div class="founder-name">LeRoi Arnold</div>
+      <div class="founder-role">Founder, Candor · London</div>
+      <p class="founder-quote">Candor was founded in 2026 after 18 months of experiencing firsthand everything that is wrong with the way hiring works. The observation that started it came from my wife. The conviction to build it came from everything that happened after. <strong>Every job platform was built for companies. Candor was built for you.</strong></p>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <h2>Join the waitlist.</h2>
+  <p>Over 4,000 professionals are already waiting. The higher your position, the earlier you get in.</p>
+  <a href="/" class="cta-btn">Get early access →</a>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-brand">
+      <div class="mark"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.2" stroke="black" stroke-width="1.5"/><circle cx="6" cy="6" r="1.7" fill="black"/></svg></div>
+      <span>Candor</span>
+    </div>
+    <p class="footer-tag">The job comes to you.</p>
+  </div>
+  <div class="footer-links">
+    <a href="/about.html">About</a>
+    <a href="/how-it-works.html">How it works</a>
+    <a href="/for-companies.html">For companies</a>
+    <a href="/earnings.html">Earnings</a>
+    <a href="/communities.html">Communities</a>
+    <a href="/transparency.html">Transparency Report</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </div>
+  <p class="footer-copy">© 2026 Candor.</p>
+</footer>
+
+</body>
+</html>

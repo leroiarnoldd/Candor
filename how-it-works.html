@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How It Works — Candor</title>
+  <meta name="description" content="How Candor works. Companies apply to you. Salary on the first message. Anonymous until you choose. Earn from every pitch. Here is the step-by-step journey."/>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;background:#000000}
+    :root{
+      --bg:#000000;--s1:#0D0D0D;--s2:#111;--s3:#1A1A1A;--s4:#222;--s5:#2E2E2E;
+      --w1:#fff;--w2:#E8E8E8;--w3:#A0A0A0;--w4:#606060;--w5:#3A3A3A;
+      --bdr:rgba(255,255,255,.07);--bdr2:rgba(255,255,255,.12);--bdr3:rgba(255,255,255,.20);
+      --blue:#4B7BFF;--green:#23D160;--amber:#F59E0B;--red:#F87171;--purple:#A78BFA;
+    }
+    body{font-family:InterVariable,Inter,sans-serif;font-feature-settings:"liga" 1,"calt" 1,"cv05" 1,"ss01" 1;background:#000000;color:var(--w3);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    body::after{display:none}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:300;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(0,0,0,.90);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr)}
+    .nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .mark{width:24px;height:24px;border-radius:7px;background:var(--w1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .nav-logo span{font-size:15px;font-weight:600;color:var(--w1);letter-spacing:-.3px}
+    .nav-cta{padding:7px 18px;border-radius:8px;font-family:inherit;font-size:13.5px;font-weight:600;background:var(--w1);color:var(--bg);border:none;cursor:pointer;transition:background .15s;text-decoration:none}
+    .nav-cta:hover{background:var(--w2)}
+
+    /* HERO */
+    .hero{padding:140px 40px 80px;max-width:880px;margin:0 auto}
+    .eyebrow{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:20px}
+    .eyebrow::before{content:"";display:block;width:14px;height:1px;background:var(--blue)}
+    .hero h1{font-size:clamp(38px,5.5vw,64px);font-weight:700;letter-spacing:-.045em;color:var(--w1);line-height:1.02;margin-bottom:24px}
+    .hero-sub{font-size:clamp(16px,1.8vw,20px);color:var(--w3);line-height:1.7;max-width:680px}
+
+    /* SECTIONS */
+    .content{max-width:880px;margin:0 auto;padding:0 40px 80px}
+    .section{padding:64px 0;border-top:1px solid var(--bdr)}
+    .section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--w4);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .section-label::before{content:"";display:block;width:14px;height:1px;background:var(--w4)}
+    .section h2{font-size:clamp(26px,3.5vw,40px);font-weight:700;letter-spacing:-.04em;color:var(--w1);line-height:1.08;margin-bottom:20px}
+    .section p{font-size:15.5px;color:var(--w3);line-height:1.8;margin-bottom:16px}
+    .section p:last-child{margin-bottom:0}
+    .section p strong{color:var(--w2);font-weight:600}
+
+    /* THE 5 STEPS */
+    .steps-intro{padding:32px 0 0}
+    .steps-intro h2{margin-bottom:14px}
+    .steps-intro p{font-size:16px;max-width:640px}
+
+    .step{display:grid;grid-template-columns:80px 1fr;gap:32px;padding:40px 0;border-top:1px solid var(--bdr);position:relative}
+    .step:first-of-type{border-top:1px solid var(--bdr2)}
+    .step-num{font-size:48px;font-weight:800;color:var(--w1);letter-spacing:-.05em;line-height:1;opacity:.85}
+    .step-accent{position:absolute;top:40px;left:0;width:3px;height:48px;border-radius:2px}
+    .step-1 .step-accent{background:var(--blue)}
+    .step-2 .step-accent{background:var(--green)}
+    .step-3 .step-accent{background:var(--amber)}
+    .step-4 .step-accent{background:var(--purple)}
+    .step-5 .step-accent{background:var(--green)}
+    .step-label{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+    .step-1 .step-label{color:var(--blue)}
+    .step-2 .step-label{color:var(--green)}
+    .step-3 .step-label{color:var(--amber)}
+    .step-4 .step-label{color:var(--purple)}
+    .step-5 .step-label{color:var(--green)}
+    .step h3{font-size:clamp(22px,2.8vw,30px);font-weight:700;letter-spacing:-.035em;color:var(--w1);line-height:1.15;margin-bottom:14px}
+    .step p{font-size:15px;color:var(--w3);line-height:1.75;margin-bottom:14px}
+    .step p strong{color:var(--w2);font-weight:600}
+
+    .step-points{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+    .step-point{display:flex;align-items:flex-start;gap:12px;padding:14px 18px;background:var(--s1);border:1px solid var(--bdr);border-radius:10px}
+    .step-point svg{width:16px;height:16px;flex-shrink:0;margin-top:2px}
+    .step-point p{font-size:13.5px;color:var(--w2);line-height:1.55;margin:0}
+    .step-point p strong{color:var(--w1);font-weight:600}
+
+    /* EARNINGS CALLOUT */
+    .earnings-box{background:var(--s1);border:1px solid var(--bdr2);border-radius:14px;padding:28px 30px;margin-top:20px;position:relative;overflow:hidden}
+    .earnings-box::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--green))}
+    .earnings-box-label{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+    .earnings-box h4{font-size:18px;font-weight:700;color:var(--w1);margin-bottom:10px;letter-spacing:-.02em}
+    .earnings-box p{font-size:14px;color:var(--w3);line-height:1.7;margin:0}
+
+    .earning-rows{display:grid;grid-template-columns:1fr;gap:10px;margin-top:18px}
+    .earning-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg);border:1px solid var(--bdr);border-radius:8px}
+    .earning-row-text{font-size:13.5px;color:var(--w2)}
+    .earning-row-text strong{color:var(--w1);font-weight:600}
+    .earning-amount{font-size:18px;font-weight:800;color:var(--green);letter-spacing:-.02em}
+
+    /* COMPARISON */
+    .compare{background:var(--s1);border:1px solid var(--bdr2);border-radius:14px;overflow:hidden;margin-top:24px}
+    .compare-head{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--bdr)}
+    .compare-head-cell{padding:16px 22px}
+    .compare-head-cell:first-child{border-right:1px solid var(--bdr)}
+    .compare-head-cell h5{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+    .compare-head-cell:first-child h5{color:var(--red)}
+    .compare-head-cell:last-child h5{color:var(--green)}
+    .compare-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--bdr)}
+    .compare-row:last-child{border-bottom:none}
+    .compare-cell{padding:16px 22px;font-size:13.5px;line-height:1.55}
+    .compare-cell:first-child{border-right:1px solid var(--bdr);color:var(--w4)}
+    .compare-cell:last-child{color:var(--w2)}
+
+    /* BOTTOM CTA */
+    .bottom-cta{padding:80px 40px;border-top:1px solid var(--bdr);text-align:left;max-width:880px;margin:0 auto}
+    .bottom-cta h2{font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-.04em;color:var(--w1);margin-bottom:16px;line-height:1.1}
+    .bottom-cta p{font-size:15.5px;color:var(--w3);margin-bottom:28px;line-height:1.7;max-width:560px}
+    .cta-btn{display:inline-block;padding:14px 30px;border-radius:10px;font-family:inherit;font-size:15px;font-weight:700;background:var(--w1);color:var(--bg);border:none;cursor:pointer;text-decoration:none;transition:all .18s}
+    .cta-btn:hover{background:var(--w2);transform:translateY(-1px)}
+
+    /* FOOTER */
+    footer{background:var(--bg);border-top:1px solid var(--bdr);padding:32px 40px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px}
+    .footer-brand{display:flex;align-items:center;gap:8px}
+    .footer-brand span{font-size:14px;font-weight:600;color:var(--w1)}
+    .footer-tag{font-size:12px;color:var(--w5);margin-top:4px}
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap}
+    .footer-links a{font-size:13px;color:var(--w5);text-decoration:none}
+    .footer-links a:hover{color:var(--w2)}
+    .footer-copy{font-size:12px;color:var(--w5)}
+
+    @media(max-width:640px){
+      nav,footer{padding:0 20px}
+      footer{padding:24px 20px}
+      .hero,.content,.bottom-cta{padding-left:20px;padding-right:20px}
+      .step{grid-template-columns:1fr;gap:16px}
+      .step-num{font-size:36px}
+      .step-accent{display:none}
+      .compare-head-cell,.compare-cell{padding:12px 14px}
+      .earnings-box{padding:22px}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="mark">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <circle cx="6" cy="6" r="4.2" stroke="black" stroke-width="1.5"/>
+        <circle cx="6" cy="6" r="1.7" fill="black"/>
+      </svg>
+    </div>
+    <span>Candor</span>
+  </a>
+  <a href="/" class="nav-cta">Get Early Access</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">How It Works</div>
+  <h1>The job comes to you. Here is how.</h1>
+  <p class="hero-sub">Candor flips the hiring process entirely. You do not apply. You do not write cover letters. You do not chase. Companies apply to you — and they pay for the right. Here is the step-by-step journey from joining the platform to getting hired.</p>
+</div>
+
+<div class="content">
+
+  <!-- STEPS INTRO -->
+  <div class="section steps-intro">
+    <div class="section-label">The Candor journey</div>
+    <h2>Five steps. One fundamental shift.</h2>
+    <p>Every step on Candor is designed around one principle — the professional comes first. Your time is respected. Your privacy is protected. Your engagement is rewarded. Here is exactly what happens from the moment you join to the moment you accept an offer.</p>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step step-1">
+    <div class="step-accent"></div>
+    <div class="step-num">01</div>
+    <div>
+      <div class="step-label">Join the platform</div>
+      <h3>Build a profile based on your work. Not your CV.</h3>
+      <p>Forget the CV. On Candor your profile is built around <strong>evidence</strong> — what you have actually done, the outcomes you have driven, and the skills you can demonstrate. You add the roles you have held, the problems you have solved, and the verifiable proof behind them.</p>
+      <p>You set your own terms up front. Your salary floor. The types of roles you want to hear about. The companies you want to avoid. The stage of career you are at. <strong>If a company cannot meet your floor, they cannot pitch you.</strong></p>
+      <div class="step-points">
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#4B7BFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>Takes around 10 minutes to complete.</strong> Most profiles pull in cleanly from existing portfolios, GitHub, or case study work.</p>
+        </div>
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#4B7BFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>Anonymous by default.</strong> Your name and current employer are hidden until you choose to reveal them to a specific company.</p>
+        </div>
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#4B7BFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>Verified skills carry weight.</strong> You can demonstrate skills through real tasks reviewed by practising experts. Those badges appear on your profile permanently.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step step-2">
+    <div class="step-accent"></div>
+    <div class="step-num">02</div>
+    <div>
+      <div class="step-label">Companies pitch you</div>
+      <h3>Real salary. Real role. Real human. On the first message.</h3>
+      <p>Every pitch that hits your inbox must include the real salary. Not a range. Not "competitive." The number the company is willing to pay. <strong>If the salary is not on the pitch, the pitch does not exist.</strong> We enforce this structurally — companies cannot send a pitch without filling in the salary field.</p>
+      <p>Companies pay £50 per employment pitch. £35 per freelance pitch. They pay to earn the right to your attention. That means the pitches that arrive are <strong>genuine, researched, and considered</strong> — not mass-blast messages from recruiters who have not read your profile.</p>
+      <div class="step-points">
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#23D160" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>Salary visible from the first message.</strong> No more guessing games. No more "let us discuss compensation." The number is right there.</p>
+        </div>
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#23D160" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>Hiring manager named.</strong> The real person you will work with — not a recruiter, not a bot, not a noreply inbox.</p>
+        </div>
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#23D160" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>Culture data attached.</strong> Verified reviews, interview process, team structure, working style. You know what you are walking into before you accept.</p>
+        </div>
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#23D160" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>You get paid just to read the pitch.</strong> £2.70 lands in your Candor wallet 48 hours after you open it. Your time is not free — and Candor is the first platform to treat it that way.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step step-3">
+    <div class="step-accent"></div>
+    <div class="step-num">03</div>
+    <div>
+      <div class="step-label">You decide</div>
+      <h3>Accept, decline, or ignore. Every option earns you something.</h3>
+      <p>This is the moment the entire system is designed around. <strong>You hold the power.</strong> Not the recruiter. Not the hiring manager. Not the algorithm. You decide whether this company deserves your time.</p>
+      <p>If you decline — you are invited to give structured feedback. Why the salary missed the mark. Why the role was wrong. Why the culture raised flags. <strong>That feedback goes directly to the company</strong> and contributes to their platform score. You earn £7.10 for giving it. The company learns something. The platform gets better. Everyone wins.</p>
+
+      <div class="earnings-box">
+        <div class="earnings-box-label">What you earn at each decision point</div>
+        <h4>Every action is rewarded.</h4>
+        <p>Unlike every other platform in existence, Candor pays you for engaging honestly with the process. No exceptions.</p>
+        <div class="earning-rows">
+          <div class="earning-row">
+            <span class="earning-row-text"><strong>Read the pitch.</strong> 60 seconds minimum. 48 hour delay.</span>
+            <span class="earning-amount">£2.70</span>
+          </div>
+          <div class="earning-row">
+            <span class="earning-row-text"><strong>Decline with structured feedback.</strong> Four questions. Company receives it.</span>
+            <span class="earning-amount">£7.10</span>
+          </div>
+          <div class="earning-row">
+            <span class="earning-row-text"><strong>Accept and get hired.</strong> One flat fee after 30-day verification.</span>
+            <span class="earning-amount">£30.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-points" style="margin-top:24px">
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F59E0B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>Companies that ghost lose their access.</strong> If a company fails to respond within 7 days after you accept a pitch, they are flagged. Repeat offenders are permanently removed from the platform.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step step-4">
+    <div class="step-accent"></div>
+    <div class="step-num">04</div>
+    <div>
+      <div class="step-label">Progress the conversation</div>
+      <h3>Interview on your terms. Still anonymous if you want.</h3>
+      <p>When you accept a pitch, the conversation opens up — but only on <strong>your terms</strong>. You decide when to reveal your name. When to share your current employer. When to schedule a call. You can interview through Candor under a pseudonym if you want to keep things quiet until you are ready.</p>
+      <p>Every interview stage is tracked. Every communication is timestamped. If a company drops off, you know. If the process drags, you know. <strong>Accountability is built into the product</strong> — not into the small print.</p>
+      <div class="step-points">
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#A78BFA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>Company response times published.</strong> How quickly this company typically replies. How long their interview process takes on average. No surprises.</p>
+        </div>
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#A78BFA" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>Your boss will never know you are here.</strong> Profile visibility is controlled by you. Specific companies and domains can be permanently blocked from seeing you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step step-5">
+    <div class="step-accent"></div>
+    <div class="step-num">05</div>
+    <div>
+      <div class="step-label">Get hired</div>
+      <h3>Accept the offer. Earn the payment. Review the company.</h3>
+      <p>When you accept an offer, £30 lands in your Candor wallet after a 30-day employment verification. Both you and the company confirm the hire. The payment releases automatically.</p>
+      <p>Then you do the thing that changes the industry forever — <strong>you leave a verified review</strong>. Salary accuracy. Communication quality. Interview fairness. Culture match. That review is published. It cannot be deleted. It feeds the quarterly Transparency Report. Future candidates see it before they accept pitches from this company.</p>
+      <div class="step-points">
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#23D160" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>Reviews are verified and permanent.</strong> Unlike other platforms, companies cannot buy, flag, or suppress candidate reviews on Candor.</p>
+        </div>
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#23D160" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>Wallet withdrawals any time above £50.</strong> Bank transfer via Stripe Connect. Same day or next business day.</p>
+        </div>
+        <div class="step-point">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#23D160" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><strong>You stay on the platform.</strong> Most people do not leave Candor after getting a job. The community, the office hours, the sponsored problems — there is always reason to stay.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE COMPARISON -->
+  <div class="section">
+    <div class="section-label">The fundamental difference</div>
+    <h2>Every other platform vs Candor.</h2>
+    <p>The word recruitment has been used for so long to describe a broken process that most professionals have stopped questioning it. Candor questions it at every single step.</p>
+    <div class="compare">
+      <div class="compare-head">
+        <div class="compare-head-cell">
+          <h5>Every other platform</h5>
+        </div>
+        <div class="compare-head-cell">
+          <h5>Candor</h5>
+        </div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">You apply to companies. Write a cover letter. Chase.</div>
+        <div class="compare-cell">Companies apply to you. Salary on the first message.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Salary hidden until the final round. Culture a mystery.</div>
+        <div class="compare-cell">Salary on every pitch. Culture data verified up front.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Get ghosted after three rounds with zero explanation.</div>
+        <div class="compare-cell">Ghosting loses companies their platform access.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Your profile is public. Your boss can see you looking.</div>
+        <div class="compare-cell">Anonymous by default. Block specific companies permanently.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Platform earns billions. You earn nothing from your data.</div>
+        <div class="compare-cell">Platform earns fairly. You earn from every engagement.</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell">Reviews are decorative. Ratings have no consequences.</div>
+        <div class="compare-cell">Reviews are verified. Named companies face real accountability.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <div class="section-label">Common questions</div>
+    <h2>What people usually ask.</h2>
+    <p><strong>Is Candor free?</strong> Yes. The core platform is free for candidates forever. You earn from using it. You only pay if you want Candor Pro features or the Expert tier. Companies pay to access you.</p>
+    <p><strong>What if no companies pitch me?</strong> You can be as passive or active as you want. Many professionals use Candor quietly, receiving a few pitches a month, and only engage when something interesting lands. Others are active in community rooms, earning from expert contributions and building reputation scores.</p>
+    <p><strong>Can I still apply to jobs like I used to?</strong> You can — but Candor is not built for that. The platform is structured around companies coming to you. If you want to apply to jobs directly, The Giant is still the place for that. Candor is for when you are done with that model.</p>
+    <p><strong>What happens if I get a pitch from my current employer?</strong> It is blocked automatically. We cross-check company domains before any pitch is sent. You can also add specific companies to a permanent block list.</p>
+    <p><strong>Do recruitment agencies use Candor?</strong> Only verified internal recruiters at named companies can send pitches. Third-party agencies, headhunters, and recruitment firms cannot pitch on Candor. Every pitch comes from the company doing the hiring.</p>
+  </div>
+
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <h2>Ready to flip the hiring process?</h2>
+  <p>Over 4,000 professionals are already on the waitlist. The higher your position, the earlier you get in. Join now.</p>
+  <a href="/" class="cta-btn">Get early access →</a>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-brand">
+      <div class="mark"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.2" stroke="black" stroke-width="1.5"/><circle cx="6" cy="6" r="1.7" fill="black"/></svg></div>
+      <span>Candor</span>
+    </div>
+    <p class="footer-tag">The job comes to you.</p>
+  </div>
+  <div class="footer-links">
+    <a href="/about.html">About</a>
+    <a href="/how-it-works.html">How it works</a>
+    <a href="/for-companies.html">For companies</a>
+    <a href="/earnings.html">Earnings</a>
+    <a href="/communities.html">Communities</a>
+    <a href="/transparency.html">Transparency Report</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </div>
+  <p class="footer-copy">© 2026 Candor.</p>
+</footer>
+
+</body>
+</html>

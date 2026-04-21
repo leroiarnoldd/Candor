@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Transparency Report — Candor</title>
+  <meta name="description" content="The Candor Transparency Report. Published quarterly. Names the best companies. Names the ghosters. Publishes salary accuracy. The data no other platform will publish."/>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;background:#000000}
+    :root{
+      --bg:#000000;--s1:#0D0D0D;--s2:#111;--s3:#1A1A1A;--s4:#222;--s5:#2E2E2E;
+      --w1:#fff;--w2:#E8E8E8;--w3:#A0A0A0;--w4:#606060;--w5:#3A3A3A;
+      --bdr:rgba(255,255,255,.07);--bdr2:rgba(255,255,255,.12);--bdr3:rgba(255,255,255,.20);
+      --blue:#4B7BFF;--green:#23D160;--amber:#F59E0B;--red:#F87171;--purple:#A78BFA;
+    }
+    body{font-family:InterVariable,Inter,sans-serif;font-feature-settings:"liga" 1,"calt" 1,"cv05" 1,"ss01" 1;background:#000000;color:var(--w3);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    body::after{display:none}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:300;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(0,0,0,.90);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr)}
+    .nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .mark{width:24px;height:24px;border-radius:7px;background:var(--w1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .nav-logo span{font-size:15px;font-weight:600;color:var(--w1);letter-spacing:-.3px}
+    .nav-cta{padding:7px 18px;border-radius:8px;font-family:inherit;font-size:13.5px;font-weight:600;background:var(--w1);color:var(--bg);border:none;cursor:pointer;transition:background .15s;text-decoration:none}
+    .nav-cta:hover{background:var(--w2)}
+
+    .hero{padding:140px 40px 60px;max-width:960px;margin:0 auto}
+    .eyebrow{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:20px}
+    .eyebrow::before{content:"";display:block;width:14px;height:1px;background:var(--amber)}
+    .hero h1{font-size:clamp(38px,5.5vw,64px);font-weight:700;letter-spacing:-.045em;color:var(--w1);line-height:1.02;margin-bottom:24px}
+    .hero-sub{font-size:clamp(16px,1.8vw,20px);color:var(--w3);line-height:1.7;max-width:720px}
+    .preview-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:99px;margin-top:20px}
+    .preview-tag span{font-size:12px;font-weight:700;color:var(--amber);letter-spacing:.08em;text-transform:uppercase}
+
+    .content{max-width:960px;margin:0 auto;padding:0 40px 80px}
+    .section{padding:56px 0;border-top:1px solid var(--bdr)}
+    .section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--w4);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .section-label::before{content:"";display:block;width:14px;height:1px;background:var(--w4)}
+    .section h2{font-size:clamp(26px,3.5vw,40px);font-weight:700;letter-spacing:-.04em;color:var(--w1);line-height:1.08;margin-bottom:20px}
+    .section p{font-size:15.5px;color:var(--w3);line-height:1.8;margin-bottom:16px}
+    .section p:last-child{margin-bottom:0}
+    .section p strong{color:var(--w2);font-weight:600}
+
+    /* QUOTE BOX */
+    .quote{background:var(--s1);border:1px solid var(--bdr2);border-radius:14px;padding:32px 36px;position:relative;overflow:hidden;margin-top:8px}
+    .quote::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--green))}
+    .quote p{font-size:18px;font-weight:500;color:var(--w1);line-height:1.6;margin:0;letter-spacing:-.015em}
+
+    /* SECTIONS OF REPORT */
+    .report-sections{display:flex;flex-direction:column;gap:14px;margin-top:24px}
+    .rsection{background:var(--s1);border:1px solid var(--bdr2);border-radius:14px;padding:26px 30px;position:relative;overflow:hidden;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:flex-start}
+    .rsection::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+    .rsection-1::before{background:var(--blue)}
+    .rsection-2::before{background:var(--green)}
+    .rsection-3::before{background:var(--red)}
+    .rsection-4::before{background:var(--amber)}
+    .rsection-5::before{background:var(--purple)}
+    .rsection-6::before{background:var(--red)}
+    .rsection-num{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+    .rsection-1 .rsection-num{color:var(--blue)}
+    .rsection-2 .rsection-num{color:var(--green)}
+    .rsection-3 .rsection-num{color:var(--red)}
+    .rsection-4 .rsection-num{color:var(--amber)}
+    .rsection-5 .rsection-num{color:var(--purple)}
+    .rsection-6 .rsection-num{color:var(--red)}
+    .rsection h3{font-size:18px;font-weight:700;color:var(--w1);margin-bottom:8px;letter-spacing:-.015em}
+    .rsection p{font-size:13.5px;color:var(--w3);line-height:1.65;margin:0}
+
+    /* SAMPLE DATA TABLE */
+    .sample-callout{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:12px 16px;margin-top:16px;margin-bottom:20px}
+    .sample-callout p{font-size:13px;color:var(--amber);margin:0}
+    .data-table{width:100%;border-collapse:collapse;background:var(--s1);border:1px solid var(--bdr);border-radius:10px;overflow:hidden;margin-top:8px}
+    .data-table th{background:var(--s2);text-align:left;padding:12px 16px;font-size:11px;font-weight:700;color:var(--w1);letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--bdr)}
+    .data-table td{padding:12px 16px;font-size:13.5px;color:var(--w2);border-bottom:1px solid var(--bdr)}
+    .data-table tr:last-child td{border-bottom:none}
+    .data-table td:last-child{text-align:right}
+    .good{color:var(--green);font-weight:700}
+    .bad{color:var(--red);font-weight:700}
+    .warn{color:var(--amber);font-weight:700}
+
+    /* IMPACT CARDS */
+    .impacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:24px}
+    .impact{background:var(--s1);border:1px solid var(--bdr);border-radius:12px;padding:24px}
+    .impact h4{font-size:14px;font-weight:700;color:var(--w1);margin-bottom:8px;letter-spacing:-.01em}
+    .impact p{font-size:13px;color:var(--w4);line-height:1.65;margin:0}
+
+    /* BOTTOM CTA */
+    .bottom-cta{padding:80px 40px;border-top:1px solid var(--bdr);text-align:left;max-width:960px;margin:0 auto}
+    .bottom-cta h2{font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-.04em;color:var(--w1);margin-bottom:16px;line-height:1.1}
+    .bottom-cta p{font-size:15.5px;color:var(--w3);margin-bottom:28px;line-height:1.7;max-width:620px}
+    .cta-btn{display:inline-block;padding:14px 30px;border-radius:10px;font-family:inherit;font-size:15px;font-weight:700;background:var(--w1);color:var(--bg);border:none;cursor:pointer;text-decoration:none;transition:all .18s}
+    .cta-btn:hover{background:var(--w2);transform:translateY(-1px)}
+
+    footer{background:var(--bg);border-top:1px solid var(--bdr);padding:32px 40px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px}
+    .footer-brand{display:flex;align-items:center;gap:8px}
+    .footer-brand span{font-size:14px;font-weight:600;color:var(--w1)}
+    .footer-tag{font-size:12px;color:var(--w5);margin-top:4px}
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap}
+    .footer-links a{font-size:13px;color:var(--w5);text-decoration:none}
+    .footer-links a:hover{color:var(--w2)}
+    .footer-copy{font-size:12px;color:var(--w5)}
+
+    @media(max-width:640px){
+      nav,footer{padding:0 20px}
+      footer{padding:24px 20px}
+      .hero,.content,.bottom-cta{padding-left:20px;padding-right:20px}
+      .rsection{grid-template-columns:1fr;gap:10px;padding:22px}
+      .quote{padding:22px}
+      .data-table th,.data-table td{padding:10px 12px;font-size:12.5px}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="mark">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <circle cx="6" cy="6" r="4.2" stroke="black" stroke-width="1.5"/>
+        <circle cx="6" cy="6" r="1.7" fill="black"/>
+      </svg>
+    </div>
+    <span>Candor</span>
+  </a>
+  <a href="/" class="nav-cta">Get Early Access</a>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow">The Transparency Report</div>
+  <h1>Published quarterly. Names the best. Names the ghosters. Cannot be suppressed.</h1>
+  <p class="hero-sub">The Candor Transparency Report is the data the recruitment industry has always had but nobody has ever been willing to publish. Every quarter, we name the best and worst companies on the platform. We show real ghosting numbers. We publish salary accuracy by employer. By name. With evidence.</p>
+  <div class="preview-tag">
+    <span>Preview — First edition publishes in 2027</span>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- WHAT IT IS -->
+  <div class="section">
+    <div class="section-label">What this is</div>
+    <h2>The data both giants will never publish.</h2>
+    <p>The Giant has this data. Glassdoor has this data. Both have had it for years. <strong>Neither will ever publish it</strong> — because the companies being named are the companies paying their bills.</p>
+    <p>Candor has no such conflict. Our revenue comes from companies earning access to professionals, not from companies buying the right to hide their behaviour. This report is possible because the business model demands it.</p>
+    <div class="quote">
+      <p>Published quarterly. Freely accessible. Cannot be suppressed. Cannot be purchased away.</p>
+    </div>
+  </div>
+
+  <!-- THE SIX SECTIONS -->
+  <div class="section">
+    <div class="section-label">Report contents</div>
+    <h2>Six sections. All verified. All named.</h2>
+    <p>Every Transparency Report follows the same structure. The data is drawn directly from the platform — not surveys, not estimates, not anecdotes. Every number has a source you can check.</p>
+
+    <div class="report-sections">
+      <div class="rsection rsection-1">
+        <div class="rsection-num">Section 01</div>
+        <div>
+          <h3>Platform Overview</h3>
+          <p>Total pitches sent. Confirmed hires. Candidate earnings paid out. Sponsored problems completed. Platform growth. Breakdown by sector and company size.</p>
+        </div>
+      </div>
+      <div class="rsection rsection-2">
+        <div class="rsection-num">Section 02</div>
+        <div>
+          <h3>The Best Companies</h3>
+          <p>The 20 companies with the highest candidate satisfaction scores this quarter. Ranked by verified review scores across salary accuracy, communication, fairness, and culture. <strong>Named. Celebrated.</strong></p>
+        </div>
+      </div>
+      <div class="rsection rsection-3">
+        <div class="rsection-num">Section 03</div>
+        <div>
+          <h3>The Ghosting Register</h3>
+          <p>Every company that failed to respond to a candidate within the platform response window this quarter. Number of incidents. Whether they were warned or removed. <strong>By name. Published permanently.</strong></p>
+        </div>
+      </div>
+      <div class="rsection rsection-4">
+        <div class="rsection-num">Section 04</div>
+        <div>
+          <h3>Salary Transparency Index</h3>
+          <p>Average salary accuracy score — the gap between what the pitch promised and what the offer delivered. Companies ranked from most transparent to least. <strong>Discrepancies above 10% flagged publicly.</strong></p>
+        </div>
+      </div>
+      <div class="rsection rsection-5">
+        <div class="rsection-num">Section 05</div>
+        <div>
+          <h3>The Decline Data</h3>
+          <p>Aggregated data from candidate decline feedback. The most common reasons candidates said no this quarter. Salary too low. Role unclear. Culture concerns. Shared with companies to help them pitch better.</p>
+        </div>
+      </div>
+      <div class="rsection rsection-6">
+        <div class="rsection-num">Section 06</div>
+        <div>
+          <h3>Removals and Warnings</h3>
+          <p>A full list of companies removed from the platform this quarter and the reason. A list of companies issued formal warnings. <strong>This section cannot be purchased away.</strong> It exists because accountability without consequences is decoration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAMPLE DATA -->
+  <div class="section">
+    <div class="section-label">Sample data</div>
+    <h2>What Q1 2027 might look like.</h2>
+    <p>The following is an illustrative preview showing what the Transparency Report will look like at scale. All company names and numbers below are fictional — included to show the format.</p>
+
+    <div class="sample-callout">
+      <p>PREVIEW — Illustrative data only. First real Transparency Report publishes 2027.</p>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;color:var(--w1);margin:24px 0 12px;letter-spacing:-.01em">Platform Overview</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>This Quarter</th>
+          <th>vs Last Quarter</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Total pitches sent</td>
+          <td>24,750</td>
+          <td><span class="good">+18%</span></td>
+        </tr>
+        <tr>
+          <td>Confirmed hires</td>
+          <td>1,980</td>
+          <td><span class="good">+22%</span></td>
+        </tr>
+        <tr>
+          <td>Candidate earnings paid</td>
+          <td>£89,400</td>
+          <td><span class="good">+31%</span></td>
+        </tr>
+        <tr>
+          <td>Sponsored problems completed</td>
+          <td>186</td>
+          <td><span class="good">+44%</span></td>
+        </tr>
+        <tr>
+          <td>Prize money paid to candidates</td>
+          <td>£74,400</td>
+          <td><span class="good">+44%</span></td>
+        </tr>
+        <tr>
+          <td>Companies removed from platform</td>
+          <td><span class="bad">3</span></td>
+          <td>Ghosting ×2, salary misrepresentation ×1</td>
+        </tr>
+        <tr>
+          <td>Net new companies this quarter</td>
+          <td>412 active</td>
+          <td><span class="good">+67</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:16px;font-weight:700;color:var(--w1);margin:32px 0 12px;letter-spacing:-.01em">Top 5 Companies</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Sector</th>
+          <th>Score</th>
+          <th>Hire Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Company A</td>
+          <td>Fintech</td>
+          <td><span class="good">4.9 / 5</span></td>
+          <td><span class="good">31%</span></td>
+        </tr>
+        <tr>
+          <td>Company B</td>
+          <td>Tech</td>
+          <td><span class="good">4.8 / 5</span></td>
+          <td><span class="good">28%</span></td>
+        </tr>
+        <tr>
+          <td>Company C</td>
+          <td>Fintech</td>
+          <td><span class="good">4.7 / 5</span></td>
+          <td><span class="good">24%</span></td>
+        </tr>
+        <tr>
+          <td>Company D</td>
+          <td>AI / Auto</td>
+          <td><span class="good">4.7 / 5</span></td>
+          <td><span class="good">38%</span></td>
+        </tr>
+        <tr>
+          <td>Company E</td>
+          <td>Fintech</td>
+          <td><span class="good">4.6 / 5</span></td>
+          <td><span class="good">26%</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:16px;font-weight:700;color:var(--w1);margin:32px 0 12px;letter-spacing:-.01em">Ghosting Register</h3>
+    <div style="background:var(--s1);border:1px solid rgba(248,113,113,.25);border-radius:10px;padding:24px 28px;text-align:center">
+      <div style="font-size:13px;font-weight:700;color:var(--red);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">Data publishes with the first real report</div>
+      <p style="font-size:14px;color:var(--w4);line-height:1.65;margin:0">Every company that ghosts a candidate on Candor will be named here. Permanently. By the time this publishes, it will contain real company names and real incident counts drawn directly from platform data. This section cannot be purchased away.</p>
+    </div>
+  </div>
+
+  <!-- WHY IT MATTERS -->
+  <div class="section">
+    <div class="section-label">Why it matters</div>
+    <h2>The stone that both giants cannot stop.</h2>
+    <p>The moment Candor publishes its first Transparency Report, four things happen simultaneously.</p>
+    <div class="impacts">
+      <div class="impact">
+        <h4>Press picks it up immediately.</h4>
+        <p>Employment journalists have been waiting for verified ghosting data for years. Every recruiter story they write relies on anecdotes. Candor gives them hard numbers with names attached. That is a front page story.</p>
+      </div>
+      <div class="impact">
+        <h4>Companies compete to make the best list.</h4>
+        <p>Being on the Top 20 becomes a hiring signal worth more than any job board badge. Companies actively improve their candidate experience to appear on it. The platform gets better because the recognition is worth earning.</p>
+      </div>
+      <div class="impact">
+        <h4>Companies fear the ghosting register.</h4>
+        <p>The reputational cost of appearing — publicly, permanently, by name — is greater than the cost of any subscription. It creates an incentive to behave well that no other platform has ever built.</p>
+      </div>
+      <div class="impact">
+        <h4>Both giants get exposed.</h4>
+        <p>The Giant and Glassdoor have this data. The existence of the Candor Report makes their silence about it a story in itself. Journalists will ask why they do not publish equivalent data. The answer is the story.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">The principle</div>
+    <h2>Why this cannot be bought away.</h2>
+    <p>On other platforms, a company with a bad rating can pay for a sponsored listing that pushes it down. A company with embarrassing reviews can threaten legal action and get them removed. A bad actor with deep pockets can, functionally, launder their reputation.</p>
+    <p>On Candor, that is structurally impossible. The data comes from the platform itself — not from surveys that can be gamed. The report is not an editorial product that companies can influence. <strong>It is a mechanical output.</strong> Companies earn their ratings by behaving well. There is no other path.</p>
+    <div class="quote">
+      <p>"The first Transparency Report is not a document. It is a declaration."</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <h2>The industry has needed this report for 20 years.</h2>
+  <p>Candor launches in 2026. The first Transparency Report publishes a year later when the platform has enough data to make it definitive. When it does, everything changes.</p>
+  <a href="/" class="cta-btn">Get early access →</a>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-brand">
+      <div class="mark"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="4.2" stroke="black" stroke-width="1.5"/><circle cx="6" cy="6" r="1.7" fill="black"/></svg></div>
+      <span>Candor</span>
+    </div>
+    <p class="footer-tag">The job comes to you.</p>
+  </div>
+  <div class="footer-links">
+    <a href="/about.html">About</a>
+    <a href="/how-it-works.html">How it works</a>
+    <a href="/for-companies.html">For companies</a>
+    <a href="/earnings.html">Earnings</a>
+    <a href="/communities.html">Communities</a>
+    <a href="/transparency.html">Transparency Report</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </div>
+  <p class="footer-copy">© 2026 Candor.</p>
+</footer>
+
+</body>
+</html>
