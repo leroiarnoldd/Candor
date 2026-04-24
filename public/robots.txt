@@ -1,0 +1,31 @@
+User-agent: *
+Allow: /
+Allow: /how-it-works
+Allow: /for-companies
+Allow: /earnings
+Allow: /communities
+Allow: /transparency
+Allow: /learn
+Allow: /learn/skill-gap
+Allow: /learn/masterclasses
+Allow: /universities
+Allow: /salary
+Allow: /about
+Allow: /legal/privacy
+Allow: /legal/terms/candidate
+Allow: /legal/terms/company
+
+# Disallow app pages
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /api
+Disallow: /onboarding
+Disallow: /profile/edit
+Disallow: /pitch
+Disallow: /wallet
+Disallow: /billing
+Disallow: /settings
+Disallow: /notifications
+Disallow: /review
+
+Sitemap: https://getcandor.net/sitemap.xml
