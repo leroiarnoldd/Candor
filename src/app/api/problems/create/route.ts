@@ -3,6 +3,8 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { stripe } from '@/lib/stripe'
 
+export const dynamic = "force-dynamic"
+
 const MIN_PRIZE_PENCE = 20000 // £200 minimum
 
 export async function POST(request: NextRequest) {

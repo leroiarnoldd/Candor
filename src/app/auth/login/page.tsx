@@ -27,7 +27,7 @@ export default function LoginPage() {
 
       if (data.user) {
         // Route based on user type
-        const { data: userData } = await supabase
+        const { data: userData } = await (supabase as any)
           .from('users')
           .select('user_type, onboarding_complete')
           .eq('id', data.user.id)

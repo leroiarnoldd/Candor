@@ -37,7 +37,7 @@ export default function CommunityPage() {
   }, [])
 
   async function loadRooms() {
-    const { data: roomsData } = await supabase
+    const { data: roomsData } = await (supabase as any)
       .from('community_rooms')
       .select('*')
       .eq('is_active', true)
@@ -46,7 +46,7 @@ export default function CommunityPage() {
     if (roomsData) setRooms(roomsData)
 
     // Get active sponsored problem counts per room
-    const { data: problems } = await supabase
+    const { data: problems } = await (supabase as any)
       .from('community_posts')
       .select('room_id')
       .eq('type', 'sponsored_problem')

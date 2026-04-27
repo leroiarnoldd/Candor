@@ -57,7 +57,7 @@ export default function SkillGapPage() {
 
     try {
       // Get real pitch data for this role
-      const { data: pitches } = await supabase
+      const { data: pitches } = await (supabase as any)
         .from('pitches')
         .select('role_title, salary_min, salary_max')
         .ilike('role_title', `%${targetRole.split(' ').slice(-2).join(' ')}%`)

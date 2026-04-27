@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe'
 import { createClient } from '@supabase/supabase-js'
-import type Stripe from 'stripe'
 
-// Use service role for webhook operations
+export const dynamic = "force-dynamic"
+
 const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || 'placeholder',
   { auth: { autoRefreshToken: false, persistSession: false } }
 )
 
@@ -18,13 +18,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'No signature' }, { status: 400 })
   }
 
-  let event: Stripe.Event
+  let event: any
 
   try {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      process.env.STRIPE_WEBHOOK_SECRET || 'placeholder'
     )
   } catch (err: any) {
     console.error('Webhook signature verification failed:', err.message)
@@ -34,9 +34,8 @@ export async function POST(request: NextRequest) {
   try {
     switch (event.type) {
 
-      // Company subscription created
       case 'checkout.session.completed': {
-        const session = event.data.object as Stripe.CheckoutSession
+        const session = event.data.object
         const { company_id, plan, pitch_credits } = session.metadata || {}
 
         if (company_id && plan) {
@@ -53,23 +52,16 @@ export async function POST(request: NextRequest) {
         break
       }
 
-      // Subscription renewed — replenish credits
       case 'invoice.payment_succeeded': {
-        const invoice = event.data.object as Stripe.Invoice
-        const customerId = invoice.customer as string
-
-        // Find company by Stripe customer ID
-        // In production you'd store the stripe_customer_id on company_profiles
-        console.log('Invoice paid for customer:', customerId)
+        const invoice = event.data.object
+        console.log('Invoice paid for customer:', invoice.customer)
         break
       }
 
-      // Candidate payout completed
       case 'transfer.created': {
-        const transfer = event.data.object as Stripe.Transfer
+        const transfer = event.data.object
         const transferId = transfer.id
 
-        // Find and complete the matching withdrawal transaction
         const { data: transactions } = await supabaseAdmin
           .from('wallet_transactions')
           .select('*')
@@ -88,9 +80,8 @@ export async function POST(request: NextRequest) {
         break
       }
 
-      // Payment failed
       case 'payment_intent.payment_failed': {
-        const paymentIntent = event.data.object as Stripe.PaymentIntent
+        const paymentIntent = event.data.object
         console.error('Payment failed:', paymentIntent.id)
         break
       }

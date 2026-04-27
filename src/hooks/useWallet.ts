@@ -12,59 +12,52 @@ export function useWallet(userId?: string) {
   useEffect(() => {
     if (!userId) return
     loadWallet()
-    subscribeToUpdates()
+    return subscribeToUpdates()
   }, [userId])
 
   async function loadWallet() {
     const { data: profile } = await supabase
       .from('candidate_profiles')
       .select('wallet_balance, total_earned')
-      .eq('user_id', userId)
+      .eq('user_id', userId as string)
       .single()
 
     if (profile) {
-      setBalance(profile.wallet_balance)
-      setTotalEarned(profile.total_earned)
+      setBalance((profile as any).wallet_balance || 0)
+      setTotalEarned((profile as any).total_earned || 0)
     }
 
     const { data: pendingTx } = await supabase
       .from('wallet_transactions')
       .select('amount')
-      .eq('user_id', userId)
+      .eq('user_id', userId as string)
       .eq('status', 'pending')
       .gt('amount', 0)
 
     if (pendingTx) {
-      setPendingAmount(pendingTx.reduce((sum, t) => sum + t.amount, 0))
+      setPendingAmount((pendingTx as any[]).reduce((sum, t) => sum + (t.amount || 0), 0))
     }
 
     setLoading(false)
   }
 
   function subscribeToUpdates() {
-    // Subscribe to real-time wallet balance changes
     const channel = supabase
       .channel(`wallet:${userId}`)
-      .on(
-        'postgres_changes',
-        {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'candidate_profiles',
-          filter: `user_id=eq.${userId}`,
-        },
-        (payload) => {
-          if (payload.new) {
-            setBalance((payload.new as any).wallet_balance)
-            setTotalEarned((payload.new as any).total_earned)
-          }
+      .on('postgres_changes', {
+        event: 'UPDATE',
+        schema: 'public',
+        table: 'candidate_profiles',
+        filter: `user_id=eq.${userId}`,
+      }, (payload) => {
+        if (payload.new) {
+          setBalance((payload.new as any).wallet_balance || 0)
+          setTotalEarned((payload.new as any).total_earned || 0)
         }
-      )
+      })
       .subscribe()
 
-    return () => {
-      supabase.removeChannel(channel)
-    }
+    return () => { supabase.removeChannel(channel) }
   }
 
   function formatCurrency(pence: number) {

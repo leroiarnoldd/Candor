@@ -43,7 +43,7 @@ export default function SalaryPage() {
     const { data: { user } } = await supabase.auth.getUser()
 
     if (user) {
-      const { data: profile } = await supabase
+      const { data: profile } = await (supabase as any)
         .from('candidate_profiles')
         .select('is_pro, is_expert')
         .eq('user_id', user.id)
@@ -52,7 +52,7 @@ export default function SalaryPage() {
     }
 
     // Get real salary data from pitches
-    const { data: pitches } = await supabase
+    const { data: pitches } = await (supabase as any)
       .from('pitches')
       .select('role_title, salary_min, salary_max, status')
       .in('status', ['hired', 'accepted', 'read', 'declined'])

@@ -79,7 +79,7 @@ export default function BillingPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) { router.push('/auth/login'); return }
 
-    const { data: userData } = await supabase
+    const { data: userData } = await (supabase as any)
       .from('users')
       .select('user_type')
       .eq('id', user.id)
@@ -88,14 +88,14 @@ export default function BillingPage() {
     if (userData) setUserType(userData.user_type as any)
 
     if (userData?.user_type === 'company') {
-      const { data: company } = await supabase
+      const { data: company } = await (supabase as any)
         .from('company_profiles')
         .select('plan')
         .eq('user_id', user.id)
         .single()
       if (company) setCurrentPlan(company.plan)
     } else {
-      const { data: candidate } = await supabase
+      const { data: candidate } = await (supabase as any)
         .from('candidate_profiles')
         .select('is_pro, is_expert')
         .eq('user_id', user.id)

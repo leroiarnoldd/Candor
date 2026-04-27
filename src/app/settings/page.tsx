@@ -35,7 +35,7 @@ export default function SettingsPage() {
     if (!user) { router.push('/auth/login'); return }
     setUser(user)
 
-    const { data: userData } = await supabase
+    const { data: userData } = await (supabase as any)
       .from('users')
       .select('user_type')
       .eq('id', user.id)

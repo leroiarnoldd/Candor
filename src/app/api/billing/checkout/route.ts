@@ -3,6 +3,8 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { stripe, PLAN_PRICES } from '@/lib/stripe'
 
+export const dynamic = "force-dynamic"
+
 const PLAN_STRIPE_PRICES: Record<string, { amount: number; credits: number; name: string }> = {
   starter: {
     amount: PLAN_PRICES.STARTER,

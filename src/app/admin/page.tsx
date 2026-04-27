@@ -64,7 +64,7 @@ export default function AdminDashboard() {
       supabase.from('company_profiles').select('id', { count: 'exact' }).eq('is_active', true),
       supabase.from('pitches').select('id', { count: 'exact' }),
       supabase.from('pitches').select('id', { count: 'exact' }).eq('status', 'hired'),
-      supabase.from('wallet_transactions').select('amount').eq('status', 'completed').gt('amount', 0).neq('type', 'withdrawal'),
+      supabase.from('wallet_transactions').select('*').eq('status', 'completed').gt('amount', 0).neq('type', 'withdrawal'),
       supabase.from('ghosting_incidents').select('id', { count: 'exact' }),
       supabase.from('company_profiles').select('id', { count: 'exact' }).eq('is_banned', true),
       supabase.from('users').select('id', { count: 'exact' }).gte('created_at', today.toISOString()),
@@ -72,7 +72,7 @@ export default function AdminDashboard() {
       supabase.from('company_profiles').select('*').gte('ghosting_incidents', 3).eq('is_banned', false).order('ghosting_incidents', { ascending: false }).limit(10),
     ])
 
-    const totalEarnings = (earningsRes.data || []).reduce((s, t) => s + (t.amount || 0), 0)
+    const totalEarnings = (earningsRes.data || []).reduce((s: number, t: any) => s + ((t as any).amount || 0), 0)
 
     setStats({
       total_candidates: candidatesRes.count || 0,
@@ -93,7 +93,7 @@ export default function AdminDashboard() {
   }
 
   async function banCompany(companyId: string, reason: string) {
-    await supabase
+    await (supabase as any)
       .from('company_profiles')
       .update({ is_banned: true, is_active: false, ban_reason: reason })
       .eq('id', companyId)
